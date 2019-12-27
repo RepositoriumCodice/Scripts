@@ -10,7 +10,7 @@ Disable Ubuntu's resolver service:
 ```
 sudo systemctl disable systemd-resolved.service
 sudo systemctl stop systemd-resolved.service
-``
+```
 
 Open the network manager configuration using the following command for editing:
 ```
