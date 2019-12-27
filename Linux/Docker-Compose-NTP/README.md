@@ -4,7 +4,11 @@ This enables you to run your own NTP server using Docker-Compose.
 
 See the original guide at: https://github.com/cturra/docker-ntp
 
+**You must alter the .env file as per your requirements!**
+The instructions below contains my personal defaults.
+
 To setup (run as root):
+
 ```
 sudo su
  
