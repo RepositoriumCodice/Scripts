@@ -1,6 +1,6 @@
 # Setup ClamAV on Ubuntu
 
-Install clamav:
+Install ClamAV:
 sudo apt-get install clamav clamav-daemon
 
 When the installation is complete:

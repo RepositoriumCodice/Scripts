@@ -1,0 +1,12 @@
+  ntp:
+    image: cturra/ntp:latest
+    container_name: ntp
+    restart: always
+    ports:
+      - 123:123/udp
+    cap_add:
+      - SYS_NICE
+      - SYS_RESOURCE
+      - SYS_TIME
+    environment:
+      - NTP_SERVERS=time.cloudflare.com,0.au.pool.ntp.org,1.au.pool.ntp.org,2.au.pool.ntp.org
