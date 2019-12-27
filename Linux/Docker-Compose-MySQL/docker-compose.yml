@@ -1,11 +1,11 @@
   mysql:
-    container_name: mysqlTest
+    container_name: ${mysqlContainerName}
     environment:
       MYSQL_ROOT_PASSWORD: ${mysqlRootPassword}
     ports:
     - '${mysqlLocalPort}:3306'
     volumes:
-    - '${localContainerData}/mysqlTest:/var/lib/mysql'
+    - '${localContainerData}/${mysqlContainerName}:/var/lib/mysql'
     image: 'mysql:latest'
     command: --default-authentication-plugin=mysql_native_password
     restart: always
