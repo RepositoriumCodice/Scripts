@@ -1,5 +1,5 @@
   mysql:
-    container_name: mysql
+    container_name: mysqlTest
     environment:
       MYSQL_ROOT_PASSWORD: ${mysqlRootPassword}
     ports:
