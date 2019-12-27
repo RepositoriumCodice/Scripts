@@ -1,7 +1,7 @@
   mysql:
     container_name: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: [secure-password]
+      MYSQL_ROOT_PASSWORD: [set-secure-password]
     ports:
     - '3306:3306'
     volumes:
