@@ -1,4 +1,4 @@
-# Setup MySQL via Portainer
+# Setup MySQL on Docker/Portainer
 
 This will download the latest MySQL image and configure it.
 
