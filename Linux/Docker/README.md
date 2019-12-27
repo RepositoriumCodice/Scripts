@@ -1,4 +1,4 @@
-#Setup Docker 
+# Setup Docker 
 
 Update the local database of software:
 sudo apt-get update
