@@ -67,6 +67,9 @@ Set the DNS to the Pi-hole IP: 192.168.0.100
 
 Advanced Routing->Static Routing
 
-ID	Destination Network     Subnet Mask		Default Gateway
-1	8.8.8.8			255.255.255.255		192.168.0.100	
-2	8.8.4.4			255.255.255.255		192.168.0.100	
+Destination Network
+8.8.8.8/255.255.255.255
+8.8.4.4/255.255.255.255
+
+Default Gateway
+192.168.0.100	
