@@ -67,6 +67,7 @@ Set the DNS to the Pi-hole IP: 192.168.0.100
 
 Advanced Routing->Static Routing
 
+
 Destination Network
 
 8.8.8.8/255.255.255.255
