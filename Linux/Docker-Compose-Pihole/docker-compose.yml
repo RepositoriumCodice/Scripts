@@ -1,0 +1,24 @@
+ pihole:
+    container_name: ${piholeContainerName}
+    domainname: docker
+    hostname: pihole
+    image: pihole/pihole:latest
+    ports:
+      - '53:53/tcp'
+      - '53:53/udp'
+      # - '67:67/udp'
+      - '80:80'
+      - '443:443'
+    restart: unless-stopped
+    volumes:
+      - ${localContainerData}/${piholeContainerName}:/etc/pihole
+      - ${localContainerData}/${piholeContainerName}/pihole.log:/var/log/pihole.log
+      - ${localContainerData}/${piholeContainerName}/dnsmasq.d:/etc/dnsmasq.d
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - ServerIP=${piholeServerIp}
+      - TZ=${TZ}
+      - WEBPASSWORD=${piholePassword}
+      - DNS1=127.0.0.1
+      - DNS2=${piholeDns}
