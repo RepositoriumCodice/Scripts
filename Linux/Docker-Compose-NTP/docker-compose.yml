@@ -9,4 +9,4 @@
       - SYS_RESOURCE
       - SYS_TIME
     environment:
-      - NTP_SERVERS=time.cloudflare.com,0.au.pool.ntp.org,1.au.pool.ntp.org,2.au.pool.ntp.org
+      - NTP_SERVERS=${ntpServers}
