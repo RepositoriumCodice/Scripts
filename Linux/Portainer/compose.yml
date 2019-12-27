@@ -1,0 +1,11 @@
+  mysql:
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: [secure-password]
+    ports:
+    - '3306:3306'
+    volumes:
+    - '/local/path/mysql:/var/lib/mysql'
+    image: 'mysql:latest'
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
