@@ -8,12 +8,11 @@ sudo apt-get install clamav clamav-daemon
 When the installation is complete:
 
 Stop the clamav-freshclam service:
-
 ```
 systemctl stop clamav-freshclam
 ```
 
-Run the freshclam command to update the signatures database
+Run the freshclam command to update the signatures database:
 ```
 freshclam
 ```
