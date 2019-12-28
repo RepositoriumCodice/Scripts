@@ -19,6 +19,9 @@
 # run:
 # ./backupNextCloud.sh 
 
+#cron:
+# 0 2 * * * 
+
 # config
 source $PWD/backupNextCloudConfig.sh
 
@@ -38,8 +41,8 @@ tar -zcvf $NC_BACKUP_DIR/dbDump.tar.gz $NC_BACKUP_DIR/db_dump_$NC_DB_TYPE.sql
 aws s3 cp $NC_BACKUP_DIR/dbDump.tar.gz $S3_BUCKET --profile=$AWS_CLI_PROFILE
 
 #backup files
-#tar -zcvf $NC_BACKUP_DIR/userData.tar.gz $NC_DATA_DIR
-#aws s3 cp $NC_BACKUP_DIR/userData.tar.gz $S3_BUCKET --profile=$AWS_CLI_PROFILE
+tar -zcvf $NC_BACKUP_DIR/userData.tar.gz $NC_DATA_DIR
+aws s3 cp $NC_BACKUP_DIR/userData.tar.gz $S3_BUCKET --profile=$AWS_CLI_PROFILE
 
 # end maintenance mode
 docker exec -u www-data $NC_APP_CONTAINER php occ maintenance:mode --off
