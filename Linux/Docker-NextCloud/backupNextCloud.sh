@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# how to:
+# run as root: 
+#    sudo su
+# download from git: 
+#    curl -LJO https://raw.githubusercontent.com/RepositoriumCodice/Scripts/master/Linux/Docker-NextCloud/backupNextCloud.sh
+# set permissions:
+#    chmod 770 backupNextcloud.sh 
+# edit the file and set the details as required
+# run:
+# ./backupNextcloud.sh 
+
 NC_DB_USER=nextcloud
 NC_DB_PASS=password
 NC_DB_NAME=nextcloud
