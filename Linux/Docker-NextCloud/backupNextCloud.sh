@@ -38,12 +38,23 @@ sudo docker exec $NC_DB_CONTAINER mysqldump --single-transaction -h localhost -u
 tar -zcvf $NC_BACKUP_DIR/dbDump.tar.gz $NC_BACKUP_DIR/db_dump_$NC_DB_TYPE.sql
 aws s3 cp $NC_BACKUP_DIR/dbDump.tar.gz $S3_BUCKET --profile=$AWS_CLI_PROFILE
 
-#backup files
-#tar -zcvf $NC_BACKUP_DIR/userData.tar.gz $NC_DATA_DIR
-#aws s3 cp $NC_BACKUP_DIR/userData.tar.gz $S3_BUCKET --profile=$AWS_CLI_PROFILE
+# backup data
+tar -zcvf $NC_BACKUP_DIR/userData.tar.gz $NC_DATA_DIR
+aws s3 cp $NC_BACKUP_DIR/userData.tar.gz $S3_BUCKET --profile=$AWS_CLI_PROFILE
+
+# backup apps
+tar -zcvf $NC_BACKUP_DIR/apps.tar.gz $NC_APPS_DIR
+aws s3 cp $NC_BACKUP_DIR/apps.tar.gz $S3_BUCKET --profile=$AWS_CLI_PROFILE
+
+# backup config
+tar -zcvf $NC_BACKUP_DIR/config.tar.gz $NC_CONFIG_DIR
+aws s3 cp $NC_BACKUP_DIR/config.tar.gz $S3_BUCKET --profile=$AWS_CLI_PROFILE
 
 # end maintenance mode
 docker exec -u www-data $NC_APP_CONTAINER php occ maintenance:mode --off
 
 # delete trap
 trap "" EXIT
+
+
+
