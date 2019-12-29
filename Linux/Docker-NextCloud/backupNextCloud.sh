@@ -20,7 +20,8 @@
 # ./backupNextCloud.sh 
 
 # config
-source $PWD/backupNextCloudConfig.sh
+baseDir="$(dirname "$0")"
+source $baseDir/backupNextCloudConfig.sh
 
 mkdir -p $NC_BACKUP_DIR
 # abort entire script if any command fails
