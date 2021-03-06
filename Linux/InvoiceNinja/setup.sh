@@ -48,5 +48,6 @@ else
     echo "$(echo '0 8 * * * /usr/local/bin/php /var/www/invoice-ninja/artisan ninja:send-reminders > /dev/null' ; crontab -l)" | crontab -
     
     # Reload apache
-    service apache2 reload
+    echo "Done installing! Please restart the container."
+    #service apache2 reload
 fi
