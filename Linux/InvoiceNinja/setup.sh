@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Check if Invoice Ninja is already setup
-FILE=/var/www/invoice-ninja/.env
+FILE=/var/www/invoice-ninja/artisan
 if [ -f "$FILE" ]; then
     echo "Invoice Ninja is already setup!"
 else 
@@ -42,9 +42,11 @@ else
     a2dissite 000-default.conf
     a2ensite invoice-ninja.conf
     a2enmod rewrite
-    service apache2 reload
 
     # Configure Cron
     echo "$(echo '0 8 * * * /usr/local/bin/php /var/www/invoice-ninja/artisan ninja:send-invoices > /dev/null' ; crontab -l)" | crontab -
     echo "$(echo '0 8 * * * /usr/local/bin/php /var/www/invoice-ninja/artisan ninja:send-reminders > /dev/null' ; crontab -l)" | crontab -
+    
+    # Reload apache
+    service apache2 reload
 fi
