@@ -2,7 +2,7 @@
 
 # Install required apps
 apt-get update
-apt-get install -y wget unzip
+apt-get install -y wget unzip nano cron
 docker-php-ext-install mysqli pdo pdo_mysql
 mkdir -p /var/www/
 
@@ -36,3 +36,8 @@ a2dissite 000-default.conf
 a2ensite invoice-ninja.conf
 a2enmod rewrite
 service apache2 reload
+
+# Configure Cron
+echo "$(echo '0 8 * * * /usr/local/bin/php /var/www/invoice-ninja/artisan ninja:send-invoices > /dev/null' ; crontab -l)" | crontab -
+echo "$(echo '0 8 * * * /usr/local/bin/php /var/www/invoice-ninja/artisan ninja:send-reminders > /dev/null' ; crontab -l)" | crontab -
+
