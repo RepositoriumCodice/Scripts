@@ -4,6 +4,7 @@
 FILE=/var/www/invoice-ninja/artisan
 if [ -f "$FILE" ]; then
     echo "Invoice Ninja is already setup!"
+    service apache2 start
 else 
     echo "Invoice Ninja is not setup. Doing it now."
 
