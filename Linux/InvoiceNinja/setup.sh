@@ -4,7 +4,7 @@
 FILE=/var/www/invoice-ninja/artisan
 if [ -f "$FILE" ]; then
     echo "Invoice Ninja is already setup!"
-    service apache2 start
+    #service apache2 start
 else 
     echo "Invoice Ninja is not setup. Doing it now."
 
@@ -49,6 +49,6 @@ else
     echo "$(echo '0 8 * * * /usr/local/bin/php /var/www/invoice-ninja/artisan ninja:send-reminders > /dev/null' ; crontab -l)" | crontab -
     
     # Reload apache
-    echo "Done installing! Please restart the container."
+    echo "Done installing! "
     #service apache2 reload
 fi
