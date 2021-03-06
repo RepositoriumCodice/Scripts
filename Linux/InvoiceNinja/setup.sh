@@ -1,43 +1,50 @@
 #!/bin/bash
 
-# Install required apps
-apt-get update
-apt-get install -y wget unzip nano cron
-docker-php-ext-install mysqli pdo pdo_mysql
-mkdir -p /var/www/
+# Check if Invoice Ninja is already setup
+FILE=/var/www/invoice-ninja/.env
+if [ -f "$FILE" ]; then
+    echo "Invoice Ninja is already setup!"
+else 
+    echo "Invoice Ninja is not setup. Doing it now."
 
-# Download Invoice Ninja
-cd /tmp/
-wget -O invoice-ninja.zip https://download.invoiceninja.com/
+    # Install required apps
+    apt-get update
+    apt-get install -y wget unzip nano cron
+    docker-php-ext-install mysqli pdo pdo_mysql
+    mkdir -p /var/www/
 
-# Unzip and set Invoice Ninja permissions
-unzip invoice-ninja.zip -d /var/www/
-mv /var/www/ninja /var/www/invoice-ninja
-chown www-data:www-data /var/www/invoice-ninja/ -R
-chmod 755 /var/www/invoice-ninja/storage/ -R
+    # Download Invoice Ninja
+    cd /tmp/
+    wget -O invoice-ninja.zip https://download.invoiceninja.com/
 
-# Add Invoice Ninja Virtual Host
-echo "<VirtualHost *:80>
-    DocumentRoot /var/www/invoice-ninja/public
+    # Unzip and set Invoice Ninja permissions
+    unzip invoice-ninja.zip -d /var/www/
+    mv /var/www/ninja /var/www/invoice-ninja
+    chown www-data:www-data /var/www/invoice-ninja/ -R
+    chmod 755 /var/www/invoice-ninja/storage/ -R
 
-    <Directory /var/www/invoice-ninja/public>
-       DirectoryIndex index.php
-       Options +FollowSymLinks
-       AllowOverride All
-       Require all granted
-    </Directory>
+    # Add Invoice Ninja Virtual Host
+    echo "<VirtualHost *:80>
+        DocumentRoot /var/www/invoice-ninja/public
 
-    ErrorLog ${APACHE_LOG_DIR}/invoice-ninja.error.log
-    CustomLog ${APACHE_LOG_DIR}/invoice-ninja.access.log combined
-</VirtualHost>" >> /etc/apache2/sites-available/invoice-ninja.conf
+        <Directory /var/www/invoice-ninja/public>
+           DirectoryIndex index.php
+           Options +FollowSymLinks
+           AllowOverride All
+           Require all granted
+        </Directory>
 
-# Adjust Apache config and restart
-a2dissite 000-default.conf
-a2ensite invoice-ninja.conf
-a2enmod rewrite
-service apache2 reload
+        ErrorLog ${APACHE_LOG_DIR}/invoice-ninja.error.log
+        CustomLog ${APACHE_LOG_DIR}/invoice-ninja.access.log combined
+    </VirtualHost>" >> /etc/apache2/sites-available/invoice-ninja.conf
 
-# Configure Cron
-echo "$(echo '0 8 * * * /usr/local/bin/php /var/www/invoice-ninja/artisan ninja:send-invoices > /dev/null' ; crontab -l)" | crontab -
-echo "$(echo '0 8 * * * /usr/local/bin/php /var/www/invoice-ninja/artisan ninja:send-reminders > /dev/null' ; crontab -l)" | crontab -
+    # Adjust Apache config and restart
+    a2dissite 000-default.conf
+    a2ensite invoice-ninja.conf
+    a2enmod rewrite
+    service apache2 reload
 
+    # Configure Cron
+    echo "$(echo '0 8 * * * /usr/local/bin/php /var/www/invoice-ninja/artisan ninja:send-invoices > /dev/null' ; crontab -l)" | crontab -
+    echo "$(echo '0 8 * * * /usr/local/bin/php /var/www/invoice-ninja/artisan ninja:send-reminders > /dev/null' ; crontab -l)" | crontab -
+fi
