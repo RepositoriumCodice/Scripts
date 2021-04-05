@@ -1,9 +1,0 @@
-version: '2'
-
-services:
-  app:
-    image: 'php:7.2.30-apache-buster'
-    ports:
-      - '180:80'
-    volumes:
-      - /mnt/containers/invoice_ninja:/var/www
